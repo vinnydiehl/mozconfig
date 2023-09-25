@@ -33,7 +33,7 @@ module MozConfig
       @globals.map!(&:join)
 
       # Find the active config
-      @active = @configs.find { |_, options| !options.first.commented? }.first
+      @active = @configs.find { |_, options| !options.first.commented? }&.first
     end
 
     def run
