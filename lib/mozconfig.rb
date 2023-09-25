@@ -34,7 +34,12 @@ module MozConfig
     end
 
     def run
-      selection = TTY::Prompt.new.select("Pick a configuration", @configs)
+      selection = begin
+        TTY::Prompt.new.select("Pick a configuration", @configs)
+      rescue TTY::Reader::InputInterrupt
+        $stderr.puts "\nProcess interrupted. Closing"
+        exit 130
+      end
 
       output = "#{@globals.join("\n\n")}\n\n"
 
