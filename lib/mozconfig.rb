@@ -31,11 +31,14 @@ module MozConfig
       @configs = configs.to_h { |cfg| [cfg.first.uncomment.strip, cfg[1..]] }
       # Globals won't be manipulated further so we can rejoin them
       @globals.map!(&:join)
+
+      # Find the active config
+      @active = @configs.find { |_, options| !options.first.commented? }.first
     end
 
     def run
       selection = begin
-        TTY::Prompt.new.select("Pick a configuration", @configs)
+        TTY::Prompt.new.select("Pick a configuration", @configs, default: @active)
       rescue TTY::Reader::InputInterrupt
         $stderr.puts "\nProcess interrupted. Closing"
         exit 130
