@@ -42,6 +42,10 @@ module MozConfig
           @prompt.trigger(:keydown)
         when "k"
           @prompt.trigger(:keyup)
+        when "\e"
+          # Escape
+          $stderr.puts "\nExiting. Configuration was not changed."
+          exit 0
         end
       end
     end
@@ -53,7 +57,7 @@ module MozConfig
           default: @active, cycle: true
         )
       rescue TTY::Reader::InputInterrupt
-        $stderr.puts "\nProcess interrupted. Closing"
+        $stderr.puts "\nProcess interrupted. Closing."
         exit 130
       end
 
