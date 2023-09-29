@@ -34,11 +34,21 @@ module MozConfig
 
       # Find the active config
       @active = @configs.find { |_, options| !options.first.commented? }&.first
+
+      @prompt = TTY::Prompt.new
+      @prompt.on(:keypress) do |event|
+        case event.value
+        when "j"
+          @prompt.trigger(:keydown)
+        when "k"
+          @prompt.trigger(:keyup)
+        end
+      end
     end
 
     def run
       selection = begin
-        TTY::Prompt.new.select(
+        @prompt.select(
           "Pick a configuration", @configs,
           default: @active, cycle: true
         )
