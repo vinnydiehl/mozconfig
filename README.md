@@ -22,8 +22,14 @@ ac_add_options --with-branding=browser/branding/nightly
 ac_add_options --with-ccache=sccache
 
 # Firefox (artifact build)
+# mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/obj-artifact-@CONFIG_GUESS@
+# ac_add_options MOZ_TELEMETRY_REPORTING=1
 # ac_add_options --with-branding=browser/branding/nightly
 # ac_add_options --enable-artifact-builds
+
+# Firefox for Android
+# mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/obj-android-@CONFIG_GUESS@
+# ac_add_options --enable-project=mobile/android
 
 # SpiderMonkey (debug)
 # mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/obj-js-debug-@CONFIG_GUESS@
@@ -62,3 +68,7 @@ picker where you can select your configuration, e.g.:
 
 ![Screenshot of
 TUI](https://github.com/vinnydiehl/mozconfig/blob/main/.github/images/screenshot.png)
+
+Your current configuration will already be highlighted. You can use the up/down
+arrows (or `k` and `j` if you're a vim fan) to change the selection, then hit
+Enter to switch your configuration, or Escape to exit without changing anything.
